@@ -11,3 +11,7 @@ npx prisma init --datasource-provider mysql
 npx prisma migrate dev --name init
 
 (!) Instalar a extensão do prisma.
+
+GIT
+git config --global user.name "Sandro Donizeti"
+git config --global user.email "sandro.gomes@aluno.ifsp.edu.br"
