@@ -15,3 +15,7 @@ npx prisma migrate dev --name init
 GIT
 git config --global user.name "Sandro Donizeti"
 git config --global user.email "sandro.gomes@aluno.ifsp.edu.br"
+
+npm run dev 
+
+npx prisma studio

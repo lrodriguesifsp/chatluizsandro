@@ -23,5 +23,5 @@ model User {
   email     String
   sex       String?
   status    String?
-  createdAt DateTime  @default(now())
+  createdAt DateTime  @default(now()) @db.Timestamp(3)
 }

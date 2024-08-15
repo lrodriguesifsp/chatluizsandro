@@ -9,7 +9,7 @@ CREATE TABLE `User` (
     `email` VARCHAR(191) NOT NULL,
     `sex` VARCHAR(191) NULL,
     `status` VARCHAR(191) NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `createdAt` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     UNIQUE INDEX `User_username_key`(`username`),
     PRIMARY KEY (`id`)
