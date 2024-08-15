@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <h1>Express</h1>
+  <p>Welcome to Express</p>
+
+  <a href="/atualizar-status-usuario.html">Atualizar Status Usuário</a>
+
+  <h2>Lista de Usuários</h2>
+  <ul id="user-list"></ul>
+
+  <h2>Cadastro de Usuário</h2>
+  <form id="registration-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="photo">Photo URL:</label>
+    <input type="text" id="photo" name="photo"><br>
+
+    <!-- <label for="birth">Birth Date:</label>
+    <input type="date" id="birth" name="birth"><br> -->
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="sex">Sex:</label>
+    <input type="text" id="sex" name="sex"><br>
+
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status"><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <h2>Atualizar Status do Usuário</h2>
+  <form id="update-status-form">
+    <label for="userId">User ID:</label>
+    <input type="number" id="userId" name="userId" required><br>
+
+    <label for="newStatus">New Status:</label>
+    <input type="text" id="newStatus" name="newStatus" required><br>
+
+    <button type="submit">Update Status</button>
+  </form>
+
+  <script>
+    // Function to fetch users and display them
+    async function fetchAndDisplayUsers() {
+      try {
+        const response = await fetch('http://localhost:3000/api/users');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const users = await response.json();
+        const userList = document.getElementById('user-list');
+        userList.innerHTML = '';
+        users.forEach(user => {
+          const li = document.createElement('li');
+          li.textContent = `${user.name} (${user.email}) STATUS: ${user.status}`;
+          userList.appendChild(li);
+        });
+      } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      }
+    }
+
+    // Function to handle user registration form submission
+    async function handleRegistrationFormSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const userData = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('http://localhost:3000/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        event.target.reset();
+        fetchAndDisplayUsers();
+      } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      }
+    }
+
+    // Function to handle status update form submission
+    async function handleStatusUpdateFormSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const userId = formData.get('userId');
+      const newStatus = formData.get('newStatus');
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/users/status/${userId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: newStatus }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        event.target.reset();
+        fetchAndDisplayUsers();
+      } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      }
+    }
+
+    // Set up form submission handlers
+    document.getElementById('registration-form').addEventListener('submit', handleRegistrationFormSubmit);
+    document.getElementById('update-status-form').addEventListener('submit', handleStatusUpdateFormSubmit);
+
+    // Fetch users on page load
+    window.onload = fetchAndDisplayUsers;
+  </script>
+</body>
+
+</html>

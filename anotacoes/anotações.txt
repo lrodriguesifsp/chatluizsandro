@@ -1,0 +1,13 @@
+npx express --no-view chatapp
+
+SET DEBUG=chatapp:* & npm run dev
+
+npm i nodemon -D
+npm i prisma -D
+npm i @prisma/client
+
+npx prisma init --datasource-provider mysql
+
+npx prisma migrate dev --name init
+
+(!) Instalar a extensão do prisma.
