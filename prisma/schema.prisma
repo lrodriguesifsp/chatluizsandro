@@ -14,14 +14,44 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   name      String
-  username  String    @unique
+  username  String        @unique
   photo     String?
-  birth     DateTime? @db.Date
+  birth     DateTime?     @db.Date
   password  String
   email     String
   sex       String?
   status    String?
-  createdAt DateTime  @default(now()) @db.Timestamp(3)
+  createdAt DateTime      @default(now()) @db.Timestamp(3)
+  chats     ChatHasUser[]
+  messages  Mensagem[]
+}
+
+model Chat {
+  id        Int           @id @default(autoincrement())
+  name      String?
+  createdAt DateTime      @default(now()) @db.Timestamp(3)
+  users     ChatHasUser[]
+  messages  Mensagem[]
+}
+
+model ChatHasUser {
+  userId Int
+  chatId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: NoAction)
+  Chat   Chat @relation(fields: [chatId], references: [id], onDelete: NoAction)
+
+  @@id([userId, chatId])
+}
+
+model Mensagem {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  chatId    Int
+  content   String?
+  file      String?
+  createdAt DateTime @default(now()) @db.Timestamp(3)
+  user      User     @relation(fields: [userId], references: [id], onDelete: NoAction)
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: NoAction)
 }

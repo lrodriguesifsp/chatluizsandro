@@ -8,7 +8,7 @@ npm i @prisma/client
 
 npx prisma init --datasource-provider mysql
 
-npx prisma migrate dev --name init
+
 
 (!) Instalar a extensão do prisma.
 
@@ -18,4 +18,16 @@ git config --global user.email "sandro.gomes@aluno.ifsp.edu.br"
 
 npm run dev 
 
+npm i
+
 npx prisma studio
+
+(PARA CRIAR O BD)
+npx prisma migrate dev --name init
+
+
+.env 
+DATABASE_URL="mysql://root:aluno@localhost:3306/chatdb"
+
+PLAYGROUND (EXEMPLOS DE CODIGO):
+https://playground.prisma.io/examples/reading/find/find-all?path=examples&host=playground.prisma.io
