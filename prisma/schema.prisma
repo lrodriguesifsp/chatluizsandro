@@ -17,15 +17,15 @@ model User {
   id        Int           @id @default(autoincrement())
   name      String
   username  String        @unique
-  photo     String?
+  profile   String?
   birth     DateTime?     @db.Date
   password  String
   email     String
-  sex       String?
+  gender    String?
   status    String?
   createdAt DateTime      @default(now()) @db.Timestamp(3)
   chats     ChatHasUser[]
-  messages  Mensagem[]
+  messages  Message[]
 }
 
 model Chat {
@@ -33,19 +33,21 @@ model Chat {
   name      String?
   createdAt DateTime      @default(now()) @db.Timestamp(3)
   users     ChatHasUser[]
-  messages  Mensagem[]
+  messages  Message[]
 }
 
 model ChatHasUser {
-  userId Int
-  chatId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: NoAction)
-  Chat   Chat @relation(fields: [chatId], references: [id], onDelete: NoAction)
+  userId   Int
+  chatId   Int
+  joinedAt DateTime  @default(now()) @db.Timestamp(3) 
+  leftAt   DateTime? @db.Timestamp(3)
+  user     User      @relation(fields: [userId], references: [id], onDelete: NoAction)
+  chat     Chat      @relation(fields: [chatId], references: [id], onDelete: NoAction)
 
   @@id([userId, chatId])
 }
 
-model Mensagem {
+model Message {
   id        Int      @id @default(autoincrement())
   userId    Int
   chatId    Int

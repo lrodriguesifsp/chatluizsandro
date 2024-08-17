@@ -27,6 +27,8 @@
     DATABASE_URL="mysql://root:aluno@localhost:3306/chatdb"
     ```
 
+    Como alternativa, é possível simplesmente gerar uma cópia do arquivo `.env.example` e renomeá-lo para `.env`.
+
 4) Execute as Migrations:
 
     ```
