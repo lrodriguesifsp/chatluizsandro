@@ -1,6 +1,6 @@
 # VSCCODE
 
-## Extensões
+## Extensões Recomendadas
 - GitHub Copilot
 - GitHub Copilot Chat
 - Live Server

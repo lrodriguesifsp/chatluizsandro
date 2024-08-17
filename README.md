@@ -9,7 +9,7 @@
 
 ## Configurando o Ambiente de Desenvolvimento
 
-1) Abra uma nova janela do VSCode (CTRL + SHIFT + N) e clone este repositório:
+1) Abra uma nova janela do VSCode (CTRL + SHIFT + N) e clone o repositório:
 
     ```
     https://github.com/sandrodonizeti/chatluizsandro.git
