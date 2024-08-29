@@ -6,7 +6,7 @@ async function handleStatusUpdateFormSubmit(event) {
     const newStatus = formData.get('newStatus');
 
     try {
-        const response = await fetch(`http://localhost:3000/api/users/status/${userId}`, {
+        const response = await fetch(`https://chatluizsandro-production.up.railway.app/api/users/status/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
